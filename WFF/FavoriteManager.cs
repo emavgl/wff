@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace WFF
 {
@@ -27,9 +28,27 @@ namespace WFF
             }
         }
 
+        private static void ensureWffFolder()
+        {
+            var systemPath = System.Environment.
+                             GetFolderPath(
+                                 Environment.SpecialFolder.CommonApplicationData
+                             );
+
+            var favoritePath = Path.Combine(systemPath, ".//WFF");
+            if (!Directory.Exists(favoritePath))
+            {
+                Directory.CreateDirectory(favoritePath);
+            }
+        }
+
         public static List<Filter> GetFilters()
         {
-            var favoritePath = Path.Combine(Directory.GetCurrentDirectory(), "\\wffstate.json");
+            var systemPath = System.Environment.
+                 GetFolderPath(
+                     Environment.SpecialFolder.CommonApplicationData
+                 );
+            var favoritePath = Path.Combine(systemPath, ".//WFF/wffstate.json");
             List<Filter> filters = JsonConvert.DeserializeObject<List<Filter>>(ReadFile(favoritePath));
             if (filters == null) filters = new List<Filter>();
             return filters;
@@ -37,9 +56,15 @@ namespace WFF
 
         public static void WriteFilters(List<Filter> filters)
         {
-            var favoritePath = Path.Combine(Directory.GetCurrentDirectory(), "\\wffstate.json");
+            ensureWffFolder();
+            var systemPath = System.Environment.
+                             GetFolderPath(
+                                 Environment.SpecialFolder.CommonApplicationData
+                             );
+            var favoritePath = Path.Combine(systemPath, ".//WFF/wffstate.json");
             string json = JsonConvert.SerializeObject(filters);
             WriteOnFile(favoritePath, json);
+            MessageBoxResult result = MessageBox.Show("Saved!", "Result");
         }
     }
 }

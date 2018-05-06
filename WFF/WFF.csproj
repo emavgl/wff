@@ -110,9 +110,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="focus.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="focus_Pwa_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
