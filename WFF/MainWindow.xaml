@@ -1,0 +1,42 @@
+﻿<Window x:Class="WFF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WFF"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="Windows Focus Filter" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="Red">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox IsHitTestVisible="True" x:Name="newSite" Grid.Column="0" Padding="10"/>
+            <Button x:Name="addNewFilterButton" Grid.Column="1" Content="Add filter" Click="addNewFilter" Background="#FFE2E6EA" Foreground="#FF212529"></Button>
+            <Button x:Name="saveButton" Grid.Column="2" Content="Save" Click="saveButton_Click" Background="#FF0069D9" Foreground="White"></Button>
+        </Grid>
+        <Grid Grid.Row="1">
+            <ListView x:Name="filterList" ItemsSource="{Binding MyFilterList}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Site" Width="300" DisplayMemberBinding="{Binding Site}"/>
+                        <GridViewColumn Header="Blocked" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Status, Mode=TwoWay}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>
